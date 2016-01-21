@@ -1,6 +1,43 @@
 @import "custom.min.css";
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
+$cream: #DFDFDF;
+$blacked: #222222;
+
+$impact: 'Impact', Charcoal, Arial Black, Gadget, sans-serif;
+$baskerville: 'Baskerville', 'Goudy Old Style', Palatino, 'Book Antiqua', serif;
+$lato: 'Lato', sans-serif;
+
+html, body {
+  background-color: $cream;
+  color: $blacked;
+
+  #home {
+    img {
+      margin:.67em 0;
+    }
+
+    .slabText {
+      font-family: $impact;
+      text-transform: uppercase;
+      line-height: 1;
+
+      .amp {
+        font-family: $baskerville;
+        font-style: italic;
+        font-weight: lighter;
+        font-size: 110%;
+      }
+
+      .thin {
+        font-family: $lato;
+        font-weight: 300;
+        font-size: 110%;
+      }
+      .lato {
+        font-family: $lato;
+        font-weight: normal;
+        font-size: 110%;
+      }
+    }
+  }
 }

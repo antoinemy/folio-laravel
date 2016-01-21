@@ -168,7 +168,9 @@
                             if(settings.wrapAmpersand) {
                                 finalText = finalText.replace(/&amp;/g, '<span class="amp">&amp;</span>');
                                 finalText = finalText.replace(/Freelance/g, '<span class="thin">Freelance</span>');
-                                finalText = finalText.replace(/intégrateur/g, '<span class="lato">Integrateur</span>');
+
+                                finalText = finalText.replace(/développeur/g, '<span class="thin">développeur </span>');
+                                finalText = finalText.replace(/intégrateur/g, '<span class="lato">intégrateur </span>');
                             };
 
                             finalText = $.trim(finalText);

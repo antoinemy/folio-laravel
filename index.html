@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title>slabText &ndash; a jQuery plugin for creating big, bold &amp; responsive headlines</title>
-    <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic,900,900italic,300italic,300,100italic,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic|Lato:400,400italic,700,700italic,900,900italic,300italic,300,100italic,100' rel='stylesheet' type='text/css'>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/style.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <div class="container">
-    <div class="col-md-offset-1 col-md-10 col-centered">
+  <div id="home" class="container">
+    <div class="col-md-offset-1 col-md-10">
       <div class="row">
 
         <div class="col-md-12">
@@ -24,7 +23,7 @@
               <img class="img-circle img-responsive" src="http://placehold.it/500x500"/>
             </div>
             <div class="col-md-8">
-              <h1 class="slabtext">Antoine My <strong>Freelance</strong> <em>conception de sites internet</em> développeur &amp; intégrateur web</h1>
+              <h1 class="slabText">Antoine My <strong>Freelance</strong> <em>conception de sites internet</em> développeur &amp; intégrateur web</h1>
             </div>
           </div>
         </div>
@@ -41,8 +40,8 @@
   <script src="js/jquery.slabtext.min.js"></script>
   <script>
     $(window).load(function() {
-      $(".slabtext").slabText({
-          "viewportBreakpoint":380
+      $(".slabText").slabText({
+          "viewportBreakpoint":0
       });
     });
   </script>
