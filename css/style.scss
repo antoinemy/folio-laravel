@@ -12,8 +12,11 @@ html, body {
   color: $blacked;
 
   #home {
-    img {
-      margin:.67em 0;
+    a {
+      text-transform: uppercase;
+      font: $lato;
+      font-weight: 100;
+      font-size: 20px;
     }
 
     .slabText {
@@ -39,5 +42,23 @@ html, body {
         font-size: 110%;
       }
     }
+  }
+}
+
+// Inactive class
+@media (max-width: 768px) {
+  .centered {
+    position: inherit;
+    top: inherit;
+    left: inherit;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+
+  .row-eq-height {
+    display: inherit;
   }
 }

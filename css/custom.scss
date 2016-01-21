@@ -75,6 +75,7 @@ $positions: right left;
   clear: both;
 }
 
+
 .centered {
   position: absolute;
   top: 50%;
@@ -88,4 +89,11 @@ $positions: right left;
 
 .relative {
   position: relative;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
