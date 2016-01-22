@@ -2,6 +2,7 @@
 
 $cream: #DFDFDF;
 $blacked: #222222;
+$lowcream: #B1B1B1;
 
 $impact: 'Impact', Charcoal, Arial Black, Gadget, sans-serif;
 $baskerville: 'Baskerville', 'Goudy Old Style', Palatino, 'Book Antiqua', serif;
@@ -14,9 +15,25 @@ html, body {
   #home {
     a {
       text-transform: uppercase;
-      font: $lato;
-      font-weight: 100;
+      font-family: $lato;
+      font-weight: 300;
       font-size: 20px;
+      color: $blacked;
+
+      &:hover {
+        text-decoration: none;
+        text-shadow: 0px 0px 0px $blacked;
+      }
+
+      &.btn-circle {
+        width: 50px;
+        height: 50px;
+        padding: 0px;
+        font-size: 34px!important;
+        line-height: 1.33;
+        border-radius: 25px;
+        color: $blacked;
+      }
     }
 
     .slabText {
@@ -42,10 +59,22 @@ html, body {
         font-size: 110%;
       }
     }
+
+    .centered-not {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
   }
 }
 
-// Inactive class
+// Inactive Custom Class
+
 @media (max-width: 768px) {
   .centered {
     position: inherit;
@@ -61,4 +90,52 @@ html, body {
   .row-eq-height {
     display: inherit;
   }
+}
+
+// Buttons Custom Class
+
+.btn-custom {
+  color: $cream;
+  background-color: $cream;
+  border-color: $cream;
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active,
+.open .dropdown-toggle.btn-custom {
+  color: $cream;
+  background-color: $lowcream;
+  border-color: $lowcream;
+}
+
+.btn-custom:active,
+.btn-custom.active,
+.open .dropdown-toggle.btn-custom {
+  background-image: none;
+}
+
+.btn-custom.disabled,
+.btn-custom[disabled],
+fieldset[disabled] .btn-custom,
+.btn-custom.disabled:hover,
+.btn-custom[disabled]:hover,
+fieldset[disabled] .btn-custom:hover,
+.btn-custom.disabled:focus,
+.btn-custom[disabled]:focus,
+fieldset[disabled] .btn-custom:focus,
+.btn-custom.disabled:active,
+.btn-custom[disabled]:active,
+fieldset[disabled] .btn-custom:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom.active {
+  background-color: $lowcream;
+  border-color: $lowcream;
+}
+
+.btn-custom .badge {
+  color: $lowcream;
+  background-color: $cream;
 }
