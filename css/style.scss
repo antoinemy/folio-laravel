@@ -11,6 +11,7 @@ $lato: 'Lato', sans-serif;
 html, body {
   background-color: $cream;
   color: $blacked;
+  font-family: $lato;
 
   #home {
     a {
@@ -36,28 +37,80 @@ html, body {
       }
     }
 
-    .slabText {
-      font-family: $impact;
+    h1 {
+      font-family: $lato;
       text-transform: uppercase;
-      line-height: 1;
-
-      .amp {
-        font-family: $baskerville;
-        font-style: italic;
-        font-weight: lighter;
-        font-size: 110%;
+      &.title-part {
+        @media (min-width: 768px) {
+          font-size: 10vw;
+        }
+        @media (min-width: 970px) {
+          font-size: 9vw;
+        }
+        @media (min-width: 1170px) {
+          font-size: 6vw;
+        }
+        @media (max-width: 768px) {
+          font-size: 11vw;
+        }
       }
 
-      .thin {
-        font-family: $lato;
-        font-weight: 300;
-        font-size: 110%;
+      &.slabText {
+        font-family: $impact;
+        text-transform: uppercase;
+        line-height: 1;
+
+        .amp {
+          font-family: $baskerville;
+          font-style: italic;
+          font-weight: lighter;
+          font-size: 110%;
+        }
+
+        .thin {
+          font-family: $lato;
+          font-weight: 300;
+          font-size: 110%;
+        }
+        .lato {
+          font-family: $lato;
+          font-weight: normal;
+          font-size: 110%;
+        }
       }
-      .lato {
+    }
+
+    h3 {
+      margin-top: 0px;
+      &.slabText {
         font-family: $lato;
-        font-weight: normal;
-        font-size: 110%;
+        text-transform: uppercase;
+        font-weight: 600;
+        line-height: 1;
+
+        .amp {
+          font-family: $baskerville;
+          font-style: italic;
+          font-weight: lighter;
+          font-size: 110%;
+        }
+
+        .thin {
+          font-family: $lato;
+          font-weight: 300;
+          font-size: 110%;
+        }
+        .lato {
+          font-family: $lato;
+          font-weight: normal;
+          font-size: 110%;
+        }
       }
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 300;
     }
 
     .centered-not {

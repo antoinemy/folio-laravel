@@ -49,12 +49,12 @@ $unit: 'px';
 // ************************************************************** //
 // Align Custom Classes
 // ************************************************************** //
-// Text Align Custom Classes : text-center, text-right, text-left
+// Text Align Custom Classes : text-center, text-right, text-left, text-justify
 // Float Align Custom Classes : float-right, float-left
 // Clear Custom Classes : clear
 // ************************************************************** //
 
-$positions: center right left;
+$positions: center right left justify;
 @each $item in $positions {
   // Text Align
   .text-#{$item} {
@@ -96,4 +96,12 @@ $positions: right left;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }
