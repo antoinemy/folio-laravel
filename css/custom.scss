@@ -1,0 +1,107 @@
+// *************************************************** //
+// Margins and Paddings Custom Classes
+// *************************************************** //
+// Margins Custom Classes : mallX, mbX, mtX, mlX, mrX
+// Paddings Custom Classes : pallX, pbX, ptX, plX, prX
+// *************************************************** //
+
+$i: 5;
+$add: 5;
+$unit: 'px';
+@while $i < 100 {
+  // Margins
+  .mall#{$i} {
+    margin: #{$i}#{$unit};
+  }
+  .mb#{$i} {
+    margin-bottom: $i#{$unit};
+  }
+  .mt#{$i} {
+    margin-top: $i#{$unit};
+  }
+  .ml#{$i} {
+    margin-left: $i#{$unit};
+  }
+  .mr#{$i} {
+    margin-right: #{$i}#{$unit};
+  }
+
+  // Paddings
+  .pall#{$i} {
+    padding: #{$i}#{$unit};
+  }
+  .pb#{$i} {
+    padding-bottom: $i#{$unit};
+  }
+  .pt#{$i} {
+    padding-top: $i#{$unit};
+  }
+  .pl#{$i} {
+    padding-left: $i#{$unit};
+  }
+  .pr#{$i} {
+    padding-right: #{$i}#{$unit};
+  }
+
+  $i: $i + $add;
+}
+
+// ************************************************************** //
+// Align Custom Classes
+// ************************************************************** //
+// Text Align Custom Classes : text-center, text-right, text-left, text-justify
+// Float Align Custom Classes : float-right, float-left
+// Clear Custom Classes : clear
+// ************************************************************** //
+
+$positions: center right left justify;
+@each $item in $positions {
+  // Text Align
+  .text-#{$item} {
+    text-align: #{$item};
+  }
+}
+
+$positions: right left;
+@each $item in $positions {
+  // Float Align
+  .float-#{$item} {
+    float: #{$item};
+  }
+}
+
+// Clear
+.clear {
+  clear: both;
+}
+
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.relative {
+  position: relative;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}

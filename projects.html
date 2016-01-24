@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Antoine My - Freelance, développeur et intégrateur web</title>
+    <meta name="desc" content="Auto-entrepreneur dans la concéption de sites internet, webmaster, développeur et intégrateur web.">
+    <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic|Lato:400,400italic,700,700italic,900,900italic,300italic,300,100italic,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="home" class="container">
+    <div class="col-md-offset-1 col-md-10">
+      <div class="row">
+        <div class="col-md-12 mb90 mt30 animated-links">
+          <a href="/">Retour</a>
+          <a href="articles.html" class="float-right">#mesarticles</a>
+          <h1 class="text-center title-part uppercase mt90">@mesprojets</h1>
+        </div>
+        <div class="col-md-12">
+
+          <div class="row row-eq-height mb60">
+            <div class="col-sm-3">
+              <a href="page.html">
+                <img src="img/avatar.jpg" class="img-circle img-thumbnail img-responsive center-block centered mb30"/>
+              </a>
+            </div>
+            <div class="col-sm-9">
+              <a href="page.html"><h3 class="uppercase">Configurer Laravel en local sur sa machine</h3></a>
+              <p>Ex ea commodo consequat consequat consequat consequat consequat consequat consequat consequat consequat consequat consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+              <a href="#">#Voyages</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      animation();
+      setInterval(animation, 12000);
+    });
+    function animation() {
+      $('.animated-links a:nth-child(2)').addClass('animated rubberBand');
+      $('.animated-links a:nth-child(2)').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $('.animated-links a:nth-child(2)').removeClass('animated rubberBand');
+        setTimeout(function() {
+          $('.animated-links a:nth-child(1)').addClass('animated tada');
+          $('.animated-links a:nth-child(1)').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+            $('.animated-links a:nth-child(1)').removeClass('animated tada');
+          });
+        }, 6000);
+      });
+    }
+  </script>
+</body>
+</html>
