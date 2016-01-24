@@ -10,206 +10,166 @@ use File;
 use Validator;
 use Auth;
 
-use App\Http\Models\News;
-use App\Http\Models\NewsContent;
-use App\Http\Models\NewsCategory;
-use App\Http\Models\NewsCategoryContent;
-use App\Http\Models\NewsPhoto;
-use App\Http\Models\Language;
+use App\Http\Models\Article;
+use App\Http\Models\ArticleCategory;
 
-class NewsCategoryController extends Controller
+class ArticleCategoryController extends Controller
 {
 	private $rules = [
 
 	];
-	
-	public function index() 
+
+	public function index()
 	{
-		$data['meta_title'] = 'Locabike - Gestion des catégories d\'actualités';
-		$data['categories'] = NewsCategory::all();
-		
-		return view('admin.category_news.index', $data);
+		$data['meta_title'] = 'Gestion des catégories d\'articles';
+		$data['categories'] = ArticleCategory::all();
+
+		return view('admin.category_article.index', $data);
 	}
-	
-	public function create() 
+
+	public function create()
 	{
-		$data['meta_title'] = 'Locabike - Création d\'une nouvelle catégorie d\'actualité';
-		$data['categories'] = NewsCategory::all();
-		$data['languages'] = Language::all();
-		
-		return view('admin.category_news.create', $data);
+		$data['meta_title'] = 'Création d\'une nouvelle catégorie d\'articles';
+		$data['categories'] = ArticleCategory::all();
+
+		return view('admin.category_article.create', $data);
 	}
-	
+
 	public function store(Request $request)
 	{
 		$input = $request->all();
-		
+
 		$validator = Validator::make($input, $this->rules);
-		
-		if($validator->fails()) 
+
+		if($validator->fails())
 		{
 			return redirect()->back()->withErrors($validator);
 		}
-		else 
+		else
 		{
-			$category = NewsCategory::create([
+			$category = ArticleCategory::create([
 				'is_visible' 		=> isset($input['is_visible']) ? 1 : 0,
-				
+				'name' 					=> $input['name'],
+
 				'created_by' 		=> Auth::user()->id,
 				'updated_by' 		=> Auth::user()->id,
 			]);
-			
-			if($languages = Language::all()) 
+
+			if(isset($input['image']) && is_uploaded_file($input['image']))
 			{
-				foreach($languages as $l) 
-				{
-					NewsCategoryContent::create([
-						'news_category_id'		=> $category->id,
-						'language_id'			=> $l->id,
-						
-						'meta_title'			=> $input['meta_title_'.$l->short_name],
-						'meta_desc'				=> $input['meta_desc_'.$l->short_name],
-						'name'					=> $input['name_'.$l->short_name],
-						'desc'					=> $input['desc_'.$l->short_name],
-						'content'				=> $input['content_'.$l->short_name],
-						
-						'created_by' 			=> Auth::user()->id,
-						'updated_by' 			=> Auth::user()->id,
-					]);
-				}	
-			}
-			
-			if(isset($input['image']) && is_uploaded_file($input['image'])) 
-			{
-				$dir = public_path('images/categories/news/'.$category->id.'/small');
+				$dir = public_path('images/categories/articles/'.$category->id.'/small');
 				if(!File::isDirectory($dir)) {
 					File::makeDirectory($dir, 0777, true);
 				}
-				
+
 				$image = Image::make($input['image'])
 					->fit(100, 100)
 					->save($dir.'/original.jpg');
-				
+
 				$category->has_image = 1;
 				$category->save();
 			}
-			
-			return redirect()->route('admin.category_news.index')->with([
+
+			return redirect()->route('admin.category_article.index')->with([
 				'type' 		=> 'success',
-				'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'actualités a bien été créé.',
+				'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été créé.',
 			]);
 		}
 	}
-	
-	public function edit($id) 
+
+	public function edit($id)
 	{
-		$data['meta_title'] = 'Locabike - Modification d\'une catégorie d\'actualité';
-		$data['category'] = NewsCategory::find($id);
-		$data['languages'] = Language::all();
-		
-		return view('admin.category_news.edit', $data);
+		$data['meta_title'] = 'Modification d\'une catégorie d\'articles';
+		$data['category'] = ArticleCategory::find($id);
+
+		return view('admin.category_article.edit', $data);
 	}
-	
-	public function update(Request $request, $id) 
+
+	public function update(Request $request, $id)
 	{
 		$input = $request->all();
-		
+
 		$validator = Validator::make($input, $this->rules);
-		
-		if($validator->fails()) 
+
+		if($validator->fails())
 		{
 			return redirect()->back()->withErrors($validator);
 		}
-		else 
+		else
 		{
-			
-			if($category = NewsCategory::find($id)) 
-			{			
+
+			if($category = ArticleCategory::find($id))
+			{
 				$category->update([
 					'is_visible' 		=> isset($input['is_visible']) ? 1 : 0,
-					
+					'name'			 		=> $input['name'],
+
 					'updated_by' 		=> Auth::user()->id,
 				]);
-				
-				if(count($category->contents) > 0) 
-				{
-					foreach($category->contents as $c) 
-					{
-						$c->update([							
-							'meta_title'	=> $input['meta_title_'.$c->language->short_name],
-							'meta_desc'		=> $input['meta_desc_'.$c->language->short_name],
-							'name'			=> $input['name_'.$c->language->short_name],
-							'desc'			=> $input['desc_'.$c->language->short_name],
-							'content'		=> $input['content_'.$c->language->short_name],
-							
-							'updated_by' 	=> Auth::user()->id,
-						]);
-					}
-				}
-				
-				if((isset($input['remove_photo']) && $input['remove_photo'] == "true") || 
-				(isset($input['image']) && is_uploaded_file($input['image']) && $category->has_image == 1)) 
+
+				if((isset($input['remove_photo']) && $input['remove_photo'] == "true") ||
+				(isset($input['image']) && is_uploaded_file($input['image']) && $category->has_image == 1))
 				{
 					$category->has_image = 0;
 					$category->save();
-					
-					$dir = public_path('images/categories/news/'.$category->id);
+
+					$dir = public_path('images/categories/articles/'.$category->id);
 			        if(File::isDirectory($dir)) {
 						File::deleteDirectory($dir);
 					}
 				}
-				
-				if(isset($input['image']) && is_uploaded_file($input['image'])) 
+
+				if(isset($input['image']) && is_uploaded_file($input['image']))
 				{
 					$dir = public_path('images/categories/news/'.$category->id.'/small');
 					if(!File::isDirectory($dir)) {
 						File::makeDirectory($dir, 0777, true);
 					}
-					
+
 					$image = Image::make($input['image'])
 						->fit(100, 100)
 						->save($dir.'/original.jpg');
-					
+
 					$category->has_image = 1;
 					$category->save();
 				}
-				
-				return redirect()->route('admin.category_news.index')->with([
+
+				return redirect()->route('admin.category_article.index')->with([
 					'type' 		=> 'success',
-					'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'actualités a bien été modifié.',
+					'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été modifié.',
 				]);
 			}
-			else 
+			else
 			{
-				return redirect()->route('admin.category_news.index')->with([
+				return redirect()->route('admin.category_article.index')->with([
 					'type' 		=> 'danger',
-					'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'actualités sélectionnée n\'existe pas.',
+					'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles sélectionnée n\'existe pas.',
 				]);
 			}
 		}
 	}
-	
-	public function destroy($id) 
+
+	public function destroy($id)
 	{
-		if($category = NewsCategory::find($id)) 
-		{    
-			$dir = public_path('images/categories/news/'.$category->id);
+		if($category = ArticleCategory::find($id))
+		{
+			$dir = public_path('images/categories/articles/'.$category->id);
 	        if(File::isDirectory($dir)) {
 				File::deleteDirectory($dir);
 			}
-			
+
 	        $category->delete();
 
-	        return redirect()->route('admin.category_news.index')->with([
+	        return redirect()->route('admin.category_article.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'actualités a bien été supprimé.',
+				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles a bien été supprimé.',
 			]);
         }
-        else 
+        else
         {
-	        return redirect()->route('admin.category_news.index')->with([
+	        return redirect()->route('admin.category_article.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'actualités sélectionnée n\'existe pas.',
+				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles sélectionnée n\'existe pas.',
 			]);
         }
 	}

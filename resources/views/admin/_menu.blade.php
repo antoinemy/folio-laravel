@@ -25,8 +25,8 @@
 							<span class="fa fa-paper-plane"></span> Articles <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li class="{{ active(['admin/category/news*'], 'active') }}">
-								<a href="{{ route('admin.category_news.index') }}">Catégories</a>
+							<li class="{{ active(['admin/category/article*'], 'active') }}">
+								<a href="{{ route('admin.category_article.index') }}">Catégories</a>
 							</li>
 							<li class="{{ active(['admin/article*'], 'active') }}">
 								<a href="{{ route('admin.article.index') }}">Articles</a>
