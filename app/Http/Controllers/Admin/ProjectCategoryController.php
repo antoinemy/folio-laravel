@@ -10,10 +10,10 @@ use File;
 use Validator;
 use Auth;
 
-use App\Http\Models\Article;
-use App\Http\Models\ArticleCategory;
+use App\Http\Models\Project;
+use App\Http\Models\ProjectCategory;
 
-class ArticleCategoryController extends Controller
+class ProjectCategoryController extends Controller
 {
 	private $rules = [
 
@@ -21,18 +21,18 @@ class ArticleCategoryController extends Controller
 
 	public function index()
 	{
-		$data['meta_title'] = 'Gestion des catégories d\'articles';
-		$data['categories'] = ArticleCategory::all();
+		$data['meta_title'] = 'Gestion des catégories de projets';
+		$data['categories'] = ProjectCategory::all();
 
-		return view('admin.category_article.index', $data);
+		return view('admin.category_project.index', $data);
 	}
 
 	public function create()
 	{
-		$data['meta_title'] = 'Création d\'une nouvelle catégorie d\'articles';
-		$data['categories'] = ArticleCategory::all();
+		$data['meta_title'] = 'Création d\'une nouvelle catégorie de projets';
+		$data['categories'] = ProjectCategory::all();
 
-		return view('admin.category_article.create', $data);
+		return view('admin.category_project.create', $data);
 	}
 
 	public function store(Request $request)
@@ -47,7 +47,7 @@ class ArticleCategoryController extends Controller
 		}
 		else
 		{
-			$category = ArticleCategory::create([
+			$category = ProjectCategory::create([
 				'is_visible' 		=> isset($input['is_visible']) ? 1 : 0,
 				'meta_title' 		=> $input['meta_title'],
 				'meta_desc' 		=> $input['meta_desc'],
@@ -59,7 +59,7 @@ class ArticleCategoryController extends Controller
 
 			if(isset($input['image']) && is_uploaded_file($input['image']))
 			{
-				$dir = public_path('images/categories/articles/'.$category->id.'/small');
+				$dir = public_path('images/categories/projects/'.$category->id.'/small');
 				if(!File::isDirectory($dir)) {
 					File::makeDirectory($dir, 0777, true);
 				}
@@ -72,19 +72,19 @@ class ArticleCategoryController extends Controller
 				$category->save();
 			}
 
-			return redirect()->route('admin.category_article.index')->with([
+			return redirect()->route('admin.category_project.index')->with([
 				'type' 		=> 'success',
-				'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été créé.',
+				'message' 	=> '<span class="fa fa-check"></span> La catégorie de projets a bien été créé.',
 			]);
 		}
 	}
 
 	public function edit($id)
 	{
-		$data['meta_title'] = 'Modification d\'une catégorie d\'articles';
-		$data['category'] = ArticleCategory::find($id);
+		$data['meta_title'] = 'Modification d\'une catégorie de projets';
+		$data['category'] = ProjectCategory::find($id);
 
-		return view('admin.category_article.edit', $data);
+		return view('admin.category_project.edit', $data);
 	}
 
 	public function update(Request $request, $id)
@@ -100,7 +100,7 @@ class ArticleCategoryController extends Controller
 		else
 		{
 
-			if($category = ArticleCategory::find($id))
+			if($category = ProjectCategory::find($id))
 			{
 				$category->update([
 					'is_visible' 		=> isset($input['is_visible']) ? 1 : 0,
@@ -117,7 +117,7 @@ class ArticleCategoryController extends Controller
 					$category->has_image = 0;
 					$category->save();
 
-					$dir = public_path('images/categories/articles/'.$category->id);
+					$dir = public_path('images/categories/projects/'.$category->id);
 			        if(File::isDirectory($dir)) {
 						File::deleteDirectory($dir);
 					}
@@ -138,16 +138,16 @@ class ArticleCategoryController extends Controller
 					$category->save();
 				}
 
-				return redirect()->route('admin.category_article.index')->with([
+				return redirect()->route('admin.category_project.index')->with([
 					'type' 		=> 'success',
-					'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été modifié.',
+					'message' 	=> '<span class="fa fa-check"></span> La catégorie de projets a bien été modifié.',
 				]);
 			}
 			else
 			{
-				return redirect()->route('admin.category_article.index')->with([
+				return redirect()->route('admin.category_project.index')->with([
 					'type' 		=> 'danger',
-					'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles sélectionnée n\'existe pas.',
+					'message' 	=> '<span class="fa fa-times"></span> La catégorie de projets sélectionnée n\'existe pas.',
 				]);
 			}
 		}
@@ -155,25 +155,25 @@ class ArticleCategoryController extends Controller
 
 	public function destroy($id)
 	{
-		if($category = ArticleCategory::find($id))
+		if($category = ProjectCategory::find($id))
 		{
-			$dir = public_path('images/categories/articles/'.$category->id);
+			$dir = public_path('images/categories/projects/'.$category->id);
 	        if(File::isDirectory($dir)) {
 				File::deleteDirectory($dir);
 			}
 
 	        $category->delete();
 
-	        return redirect()->route('admin.category_article.index')->with([
+	        return redirect()->route('admin.category_project.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles a bien été supprimé.',
+				'message' 	=> '<span class="fa fa-times"></span> La catégorie de projets a bien été supprimé.',
 			]);
         }
         else
         {
-	        return redirect()->route('admin.category_article.index')->with([
+	        return redirect()->route('admin.category_project.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> La catégorie d\'articles sélectionnée n\'existe pas.',
+				'message' 	=> '<span class="fa fa-times"></span> La catégorie de projets sélectionnée n\'existe pas.',
 			]);
         }
 	}

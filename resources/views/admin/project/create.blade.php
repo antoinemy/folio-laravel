@@ -12,7 +12,7 @@
 				</div>
 			@endif
 			<div class="row">
-				<form action="{{ route('admin.page.store') }}" method="post" enctype="multipart/form-data">
+				<form action="{{ route('admin.project.store') }}" method="post" enctype="multipart/form-data">
 
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 						<div class="row">
@@ -22,15 +22,15 @@
 										<div id="imagePreview" class="img-circle imagePreview"></div>
 									</div>
 									<span class="file-input btn btn-primary btn-file m-t-20">
-			                Ajouter une image <input id="uploadFile" name="image" type="file">
-			            </span>
+						                Ajouter une image <input id="uploadFile" name="image" type="file">
+						            </span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
 
-						@include('admin.page._form')
+						@include('admin.project._form')
 
 						<button class="btn btn-success pull-right m-b-15" type="submit">Créer l'actualité</button>
 					</div>

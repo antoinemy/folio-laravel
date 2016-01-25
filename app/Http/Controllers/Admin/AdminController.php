@@ -19,7 +19,7 @@ class AdminController extends Controller
 	private $rules = [
 		'last_name' 		=> 'required|max:255',
 		'first_name' 		=> 'required|max:255',
-		'email' 				=> 'required|email|max:255|unique:locabike_admins',
+		'email' 				=> 'required|email|max:255|unique:folio_admins',
 		'password' 			=> 'required|confirmed|min:4',
 	];
 
@@ -116,7 +116,7 @@ class AdminController extends Controller
 	{
 		$input = $request->all();
 
-		$this->rules['email'] = 'required|email|max:255|unique:locabike_admins,email,'.$id;
+		$this->rules['email'] = 'required|email|max:255|unique:folio_admins,email,'.$id;
 		$this->rules['password'] = 'confirmed|min:4';
 
 		$validator = Validator::make($input, $this->rules);

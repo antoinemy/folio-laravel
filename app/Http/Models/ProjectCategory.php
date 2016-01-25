@@ -15,6 +15,8 @@ class ProjectCategory extends Model
     protected $fillable = [
 	    'is_visible',
 	    'has_image',
+      'meta_title',
+      'meta_desc',
       'name',
 	    'created_by',
 	    'updated_by',

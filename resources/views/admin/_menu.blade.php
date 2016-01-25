@@ -34,6 +34,20 @@
 						</ul>
 					</li>
 
+					<li class="dropdown {{ active(['admin/project*', 'admin/category/project*'], 'active') }}">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="fa fa-cube"></span> Projets <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="{{ active(['admin/category/project*'], 'active') }}">
+								<a href="{{ route('admin.category_project.index') }}">Catégories</a>
+							</li>
+							<li class="{{ active(['admin/project*'], 'active') }}">
+								<a href="{{ route('admin.project.index') }}">Projets</a>
+							</li>
+						</ul>
+					</li>
+
 					<li class="{{ active(['admin/page*'], 'active') }}">
 						<a href="{{ route('admin.page.index') }}"><span class="fa fa-paperclip"></span> Pages</a>
 					</li>

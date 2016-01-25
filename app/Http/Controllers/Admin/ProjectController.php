@@ -10,10 +10,10 @@ use File;
 use Validator;
 use Auth;
 
-use App\Http\Models\Article;
-use App\Http\Models\ArticleCategory;
+use App\Http\Models\Project;
+use App\Http\Models\ProjectCategory;
 
-class ArticleController extends Controller
+class ProjectController extends Controller
 {
 	private $rules = [
 
@@ -21,18 +21,18 @@ class ArticleController extends Controller
 
 	public function index()
 	{
-		$data['meta_title'] = 'Gestion des articles';
-		$data['articles'] = Article::all();
+		$data['meta_title'] = 'Gestion des projects';
+		$data['projects'] = Project::all();
 
-		return view('admin.article.index', $data);
+		return view('admin.project.index', $data);
 	}
 
 	public function create()
 	{
-		$data['meta_title'] = 'Création d\'un nouvel article';
-		$data['categories'] = ArticleCategory::all();
+		$data['meta_title'] = 'Création d\'un nouveau projet';
+		$data['categories'] = ProjectCategory::all();
 
-		return view('admin.article.create', $data);
+		return view('admin.project.create', $data);
 	}
 
 	public function store(Request $request)
@@ -47,8 +47,8 @@ class ArticleController extends Controller
 		}
 		else
 		{
-			$article = Article::create([
-				'article_category_id'	=> $input['category'],
+			$project = Project::create([
+				'project_category_id'	=> $input['category'],
 				'is_visible' 					=> isset($input['is_visible']) ? 1 : 0,
 
 				'meta_title'					=> $input['meta_title'],
@@ -63,7 +63,7 @@ class ArticleController extends Controller
 
 			if(isset($input['image']) && is_uploaded_file($input['image']))
 			{
-				$dir = public_path('images/article/'.$article->id.'/small');
+				$dir = public_path('images/project/'.$project->id.'/small');
 				if(!File::isDirectory($dir)) {
 					File::makeDirectory($dir, 0777, true);
 				}
@@ -72,30 +72,30 @@ class ArticleController extends Controller
 					->fit(100, 100)
 					->save($dir.'/original.jpg');
 
-				$article->has_image = 1;
-				$article->save();
+				$project->has_image = 1;
+				$project->save();
 			}
 
-			return redirect()->route('admin.article.index')->with([
+			return redirect()->route('admin.project.index')->with([
 				'type' 		=> 'success',
-				'message' 	=> '<span class="fa fa-check"></span> L\'article a bien été créé.',
+				'message' 	=> '<span class="fa fa-check"></span> Le project a bien été créé.',
 			]);
 		}
 	}
 
 	public function edit($id)
 	{
-		$data['meta_title'] = 'Modification d\'un article';
-		$data['article'] = Article::find($id);
-		$data['categories'] = ArticleCategory::all();
+		$data['meta_title'] = 'Modification d\'un project';
+		$data['project'] = Project::find($id);
+		$data['categories'] = ProjectCategory::all();
 
-		return view('admin.article.edit', $data);
+		return view('admin.project.edit', $data);
 	}
 
 	public function update(Request $request, $id)
 	{
 		$input = $request->all();
-
+		
 		$validator = Validator::make($input, $this->rules);
 
 		if($validator->fails())
@@ -105,10 +105,10 @@ class ArticleController extends Controller
 		else
 		{
 
-			if($article = Article::find($id))
+			if($project = Project::find($id))
 			{
-				$article->update([
-					'article_category_id'	=> $input['category'],
+				$project->update([
+					'project_category_id'	=> $input['category'],
 					'is_visible' 					=> isset($input['is_visible']) ? 1 : 0,
 
 					'meta_title'					=> $input['meta_title'],
@@ -121,12 +121,12 @@ class ArticleController extends Controller
 				]);
 
 				if((isset($input['remove_photo']) && $input['remove_photo'] == "true") ||
-				(isset($input['image']) && is_uploaded_file($input['image']) && $article->has_image == 1))
+				(isset($input['image']) && is_uploaded_file($input['image']) && $project->has_image == 1))
 				{
-					$article->has_image = 0;
-					$article->save();
+					$project->has_image = 0;
+					$project->save();
 
-					$dir = public_path('images/article/'.$article->id);
+					$dir = public_path('images/project/'.$project->id);
 			    if(File::isDirectory($dir)) {
 						File::deleteDirectory($dir);
 					}
@@ -134,7 +134,7 @@ class ArticleController extends Controller
 
 				if(isset($input['image']) && is_uploaded_file($input['image']))
 				{
-					$dir = public_path('images/article/'.$article->id.'/small');
+					$dir = public_path('images/project/'.$project->id.'/small');
 					if(!File::isDirectory($dir)) {
 						File::makeDirectory($dir, 0777, true);
 					}
@@ -143,20 +143,20 @@ class ArticleController extends Controller
 						->fit(100, 100)
 						->save($dir.'/original.jpg');
 
-					$article->has_image = 1;
-					$article->save();
+					$project->has_image = 1;
+					$project->save();
 				}
 
-				return redirect()->route('admin.article.index')->with([
+				return redirect()->route('admin.project.index')->with([
 					'type' 		=> 'success',
-					'message' 	=> '<span class="fa fa-check"></span> L\'article a bien été modifié.',
+					'message' 	=> '<span class="fa fa-check"></span> Le projet a bien été modifié.',
 				]);
 			}
 			else
 			{
-				return redirect()->route('admin.article.index')->with([
+				return redirect()->route('admin.project.index')->with([
 					'type' 		=> 'danger',
-					'message' 	=> '<span class="fa fa-times"></span> L\'article sélectionné n\'existe pas.',
+					'message' 	=> '<span class="fa fa-times"></span> Le projet sélectionné n\'existe pas.',
 				]);
 			}
 		}
@@ -164,25 +164,25 @@ class ArticleController extends Controller
 
 	public function destroy($id)
 	{
-		if($article = Article::find($id))
+		if($project = Project::find($id))
 		{
-			$dir = public_path('images/article/'.$article->id);
+			$dir = public_path('images/project/'.$project->id);
 	    if(File::isDirectory($dir)) {
 				File::deleteDirectory($dir);
 			}
 
-      $article->delete();
+      $project->delete();
 
-      return redirect()->route('admin.article.index')->with([
+      return redirect()->route('admin.project.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> L\'actualité a bien été supprimé.',
+				'message' 	=> '<span class="fa fa-times"></span> Le projet a bien été supprimé.',
 			]);
     }
     else
     {
-      return redirect()->route('admin.article.index')->with([
+      return redirect()->route('admin.project.index')->with([
 				'type' 		=> 'danger',
-				'message' 	=> '<span class="fa fa-times"></span> L\'actualité sélectionnée n\'existe pas.',
+				'message' 	=> '<span class="fa fa-times"></span> Le projet sélectionné n\'existe pas.',
 			]);
     }
 	}

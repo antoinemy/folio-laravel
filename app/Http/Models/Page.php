@@ -16,6 +16,8 @@ class Page extends Model
 	    'page_type_id',
 	    'is_visible',
 	    'has_image',
+	    'meta_title',
+	    'meta_desc',
       'link_github',
       'link_bitbucket',
 	    'created_by',

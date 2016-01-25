@@ -7,8 +7,8 @@
 	</div>
 	<div class="form-group {{ $errors->has('meta_desc') ? 'has-error' : '' }}">
 		<label for="meta_desc">Description de la page</label>
-		<input type="text" class="form-control" name="meta_desc" placeholder="La Blonde" value="{{ isset($category) ? $category->meta_desc : old('meta_desc') }}">
-	</div>
+		<textarea rows="2" class="form-control" name="meta_desc" placeholder="Suave et chaleureuse...">{{ isset($category) ? $category->meta_desc : old('meta_desc') }}</textarea>
+</div>
 	<hr/>
 	<h4>Informations</h4>
 	<div class="form-group checkbox checkbox-primary">

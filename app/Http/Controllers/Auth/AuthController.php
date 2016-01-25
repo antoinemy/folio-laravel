@@ -17,9 +17,9 @@ class AuthController extends Controller
 		'email' => 'required',
         'password' => 'required',
     ];
-    
+
 	protected $auth;
-	
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -75,7 +75,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-    
+
     protected function getLogin() {
         return view('auth.login');
     }
@@ -84,7 +84,7 @@ class AuthController extends Controller
         if ($this->auth->attempt($request->only('email', 'password'))) {
             return redirect()->route('admin.dashboard.index');
         }
- 
+
         return redirect()->route('login')->withErrors(['Email ou mot de passe incorrect.']);
     }
 

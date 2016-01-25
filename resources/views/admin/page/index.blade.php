@@ -1,7 +1,7 @@
 @include('admin._header')
-	    
+
 @include('admin._menu')
-		
+
 	<div class="container">
 		<div class="col-md-12">
 			<div id="actions_row" class="row"></div>
@@ -14,20 +14,47 @@
 			@endif
 			<div id="content_row" class="row">
 				@if(count($pages) > 0)
-					@foreach($pages as $p)
-						<div class="item_row col-lg-3 col-md-4 col-sm-6 col-xs-12">
-							<div class="content text-center">
-								<img class="img-circle m-t-10" src="{{ route('image', [100, 100, 'page', $p->id, $p->photo->name]) }}" alt="">
-								<h3><small>{{ $p->name }}</small></h3>
-								<div class="btn-group top-right">
-									<a class="btn btn-xs btn-default" href="{{ route('admin.page.edit', $p->id) }}" title=""><span class="fa fa-pencil"></span></a>
-								</div>
+					<div class="col-xs-12">
+						<div class="content">
+							<div class="table-responsive">
+								<table id="table" class="table table-striped">
+								    <thead>
+								        <tr>
+								            <th></th>
+								            <th>Nom de la page</th>
+								            <th></th>
+								        </tr>
+								    </thead>
+								    <tbody>
+									    @foreach($pages as $p)
+									        <tr>
+									            <td>{{ $p->id }}</td>
+									            <td>{{ $p->name }}</td>
+									            <td>
+										            <form id="form_{{ $p->id }}" method="post" action="{{ route('admin.page.destroy', $p->id) }}">
+											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+											            <input type="hidden" name="_method" value="DELETE">
+											            <div class="btn-group pull-right">
+																		<a class="btn btn-xs btn-default" href="{{ route('admin.page.edit', $p->id) }}">
+																			<span class="fa fa-pencil"></span>
+																		</a>
+																		<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $p->id }}">
+																			<span class="fa fa-times"></span>
+																		</a>
+																	</div>
+																</form>
+									            </td>
+									        </tr>
+								        @endforeach
+								    </tbody>
+								</table>
 							</div>
 						</div>
-					@endforeach
+					</div>
+					<div id="paging"></div>
 				@else
 					<div class="col-lg-12">
-						<p class="content">Actuellement aucune donnée.</p>
+						<p class="content">Aucune page actuellement.</p>
 					</div>
 				@endif
 			</div>
