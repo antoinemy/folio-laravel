@@ -4,7 +4,13 @@
 
 	<div class="container">
 		<div class="col-md-12">
-			<div id="actions_row" class="row"></div>
+			<div id="actions_row" class="row">
+				@if(count($pages) > 0)
+					<div class="col-md-offset-8 col-md-4 col-sm-offset-7 col-sm-5 m-b-15">
+						<input type="text" id="search" class="form-control" placeholder="Rechercher une page">
+					</div>
+				@endif
+			</div>
 			@if(session('type') && session('message'))
 				<div class="row">
 					<div class="col-lg-12">
@@ -21,15 +27,17 @@
 								    <thead>
 								        <tr>
 								            <th></th>
-								            <th>Nom de la page</th>
+								            <th>Visible</th>
+								            <th>Type de la page</th>
 								            <th></th>
 								        </tr>
 								    </thead>
 								    <tbody>
 									    @foreach($pages as $p)
 									        <tr>
-									            <td>{{ $p->id }}</td>
-									            <td>{{ $p->name }}</td>
+									            <td><img src='{{ route("page_image_small", [$p->id, "original"]) }}' class="img-circle img-xs"/></td>
+															<td>{!! $p->is_visible == 1 ? '<span class="label label-success">Oui</span>' : '<span class="label label-danger">Non</span>' !!}</td>
+									            <td>{{ $p->type->name }}</td>
 									            <td>
 										            <form id="form_{{ $p->id }}" method="post" action="{{ route('admin.page.destroy', $p->id) }}">
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -61,4 +69,25 @@
 		</div>
 	</div>
 
-@include('admin._footer')
+	@include('admin._footer')
+
+	<script>
+		$(document).ready(function(){
+			var datatable = $('#table').DataTable({
+				language: {
+					url: "{{ asset('/admin/plugins/datatable/languages/french.json') }}"
+				},
+				oLanguage: {
+					"sZeroRecords": "Aucune page trouvée.",
+					"sEmptyTable": "Aucune page actuellement."
+				},
+				"sDom": '<"H">t<"F"p>'
+			});
+
+			$('#search').keyup(function(){
+				datatable.search($(this).val()).draw() ;
+			})
+		});
+	</script>
+
+</body>

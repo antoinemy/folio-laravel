@@ -72,6 +72,15 @@ class PageController extends Controller
 					->fit(100, 100)
 					->save($dir.'/original.jpg');
 
+				$dir = public_path('images/page/'.$page->id);
+				if(!File::isDirectory($dir)) {
+					File::makeDirectory($dir, 0777, true);
+				}
+
+				$image = Image::make($input['image'])
+					->fit(500, 500)
+					->save($dir.'/original.jpg');
+
 				$page->has_image = 1;
 				$page->save();
 			}
@@ -142,6 +151,15 @@ class PageController extends Controller
 						->fit(100, 100)
 						->save($dir.'/original.jpg');
 
+					$dir = public_path('images/page/'.$page->id);
+					if(!File::isDirectory($dir)) {
+						File::makeDirectory($dir, 0777, true);
+					}
+
+					$image = Image::make($input['image'])
+						->fit(500, 500)
+						->save($dir.'/original.jpg');
+
 					$page->has_image = 1;
 					$page->save();
 				}
@@ -183,11 +201,5 @@ class PageController extends Controller
 				'message' 	=> '<span class="fa fa-times"></span> Le projet sélectionné n\'existe pas.',
 			]);
     }
-	}
-
-	public function search(Request $request)
-	{
-		$input = $request->all();
-		dd($input);
 	}
 }

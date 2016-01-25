@@ -4,7 +4,11 @@
 
 Route::get('/', ['as' => 'site.index', 'uses' => 'HomeController@index']);
 Route::get('/articles', ['as' => 'site.articles', 'uses' => 'HomeController@articles']);
+Route::get('/categories/{id}/articles', ['as' => 'site.category_articles', 'uses' => 'HomeController@category_articles']);
+Route::get('/articles/{id}', ['as' => 'site.page_article', 'uses' => 'HomeController@page_article']);
 Route::get('/projects', ['as' => 'site.projects', 'uses' => 'HomeController@projects']);
+Route::get('/categories/{id}/projects', ['as' => 'site.category_projects', 'uses' => 'HomeController@category_projects']);
+Route::get('/projects/{id}', ['as' => 'site.page_project', 'uses' => 'HomeController@page_project']);
 
 // Authentication Routes
 Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function()
@@ -56,12 +60,13 @@ Route::group(['namespace' => 'Tools'], function()
 {
 	// Images
 	Route::get('images/admin/{id}/small/{name}', ['as' => 'admin_image_small', 'uses' => 'ImageController@admin_small']);
-	Route::get('images/page/{id}/small/{name}', ['as' => 'page_image_small', 'uses' => 'ImageController@page_small']);
-	Route::get('images/news/{id}/small/{name}', ['as' => 'news_image_small', 'uses' => 'ImageController@news_small']);
-	Route::get('images/news/{id}/photos/{name}', ['as' => 'news_image_photos', 'uses' => 'ImageController@news_photos']);
-	Route::get('images/categories/news/{id}/small/{name}', ['as' => 'category_news_image_small', 'uses' => 'ImageController@category_news_small']);
-	Route::get('images/product/{id}/small/{name}', ['as' => 'product_image_small', 'uses' => 'ImageController@product_small']);
-	Route::get('images/product/{id}/photos/{name}', ['as' => 'product_image_photos', 'uses' => 'ImageController@product_photos']);
-	Route::get('images/categories/product/{id}/small/{name}', ['as' => 'category_product_image_small', 'uses' => 'ImageController@category_product_small']);
 
+	Route::get('images/page/{id}/small/{name}', ['as' => 'page_image_small', 'uses' => 'ImageController@page_small']);
+	Route::get('images/page/{id}/{name}', ['as' => 'page_image_normal', 'uses' => 'ImageController@page_normal']);
+
+	Route::get('images/article/{id}/small/{name}', ['as' => 'article_image_small', 'uses' => 'ImageController@article_small']);
+	Route::get('images/article/{id}/{name}', ['as' => 'article_image_normal', 'uses' => 'ImageController@article_normal']);
+
+	Route::get('images/project/{id}/small/{name}', ['as' => 'project_image_small', 'uses' => 'ImageController@project_small']);
+	Route::get('images/project/{id}/{name}', ['as' => 'project_image_normal', 'uses' => 'ImageController@project_normal']);
 });

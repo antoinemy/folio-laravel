@@ -17,27 +17,26 @@
         <div class="col-md-12 mb90 mt30 animated-links">
           <a href="{{ route('site.index') }}">Retour</a>
           <a href="{{ route('site.articles') }}" class="float-right">#mesarticles</a>
-          <h1 class="text-center title-part uppercase mt90">@mesprojets</h1>
+          <h1 class="text-center title-part uppercase mt90">#{{ $category->name }}</h1>
         </div>
         <div class="col-md-12">
-          @if(count($projects) > 0)
-            @foreach($projects as $p)
+          @if(count($category->articles) > 0)
+            @foreach($category->articles as $a)
               <div class="row row-eq-height mb60">
                 <div class="col-sm-3">
-                  <a href="{{ route('site.page_project', $p->id) }}">
-                    <img src="{{ route('project_image_normal', [$p->id, 'original']) }}" class="img-circle img-thumbnail img-responsive center-block centered mb30"/>
+                  <a href="{{ route('site.page_article', $a->id) }}">
+                    <img src="{{ route('article_image_normal', [$a->id, 'original']) }}" class="img-circle img-thumbnail img-responsive center-block centered mb30"/>
                   </a>
                 </div>
                 <div class="col-sm-9">
-                  <a href="{{ route('site.page_project', $p->id) }}"><h3>{{ $p->name }}</h3></a>
-                  <p>{{ $p->desc }}</p>
-                  <a href="{{ route('site.category_projects', [$p->category->id]) }}">#{{ $p->category->name }}</a>
+                  <a href="{{ route('site.page_article', $a->id) }}"><h3>{{ $a->name }}</h3></a>
+                  <p>{{ $a->desc }}</p>
                 </div>
               </div>
             @endforeach
           @else
             <p>
-              Aucun projet actuellement.
+              Aucun article actuellement.
             </p>
           @endif
         </div>

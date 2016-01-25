@@ -24,6 +24,10 @@ class ProjectCategory extends Model
 
     protected $hidden = [];
 
+    public function projects() {
+    return $this->hasMany('App\Http\Models\Project');
+    }
+
     public function creator() {
 		return $this->belongsTo('App\Http\Models\Admin', 'created_by');
     }

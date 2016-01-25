@@ -10,7 +10,7 @@
 				</div>
 				@if(count($projects) > 0)
 					<div class="col-md-4 col-sm-5 m-b-15">
-						<input type="text" id="search" class="form-control" placeholder="Rechercher une actualité">
+						<input type="text" id="search" class="form-control" placeholder="Rechercher un projet">
 					</div>
 				@endif
 			</div>
@@ -30,17 +30,17 @@
 								    <thead>
 								        <tr>
 								            <th></th>
-								            <th>Nom de l'actualité</th>
-								            <th>Description</th>
+								            <th>Visible</th>
+								            <th>Nom du projet</th>
 								            <th></th>
 								        </tr>
 								    </thead>
 								    <tbody>
 									    @foreach($projects as $n)
 									        <tr>
-									            <td>{{ $n->id }}</td>
+									            <td><img src='{{ route("project_image_small", [$n->id, "original"]) }}' class="img-circle img-xs"/></td>
+															<td>{!! $n->is_visible == 1 ? '<span class="label label-success">Oui</span>' : '<span class="label label-danger">Non</span>' !!}</td>
 									            <td>{{ $n->name }}</td>
-									            <td>{{ $n->desc }}</td>
 									            <td>
 										            <form id="form_{{ $n->id }}" method="post" action="{{ route('admin.project.destroy', $n->id) }}">
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">

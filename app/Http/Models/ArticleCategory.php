@@ -24,6 +24,10 @@ class ArticleCategory extends Model
 
     protected $hidden = [];
 
+    public function articles() {
+		return $this->hasMany('App\Http\Models\Article');
+    }
+
     public function creator() {
 		return $this->belongsTo('App\Http\Models\Admin', 'created_by');
     }

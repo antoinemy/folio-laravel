@@ -10,7 +10,7 @@
 				</div>
 				@if(count($articles) > 0)
 					<div class="col-md-4 col-sm-5 m-b-15">
-						<input type="text" id="search" class="form-control" placeholder="Rechercher une actualité">
+						<input type="text" id="search" class="form-control" placeholder="Rechercher un article">
 					</div>
 				@endif
 			</div>
@@ -30,26 +30,26 @@
 								    <thead>
 								        <tr>
 								            <th></th>
-								            <th>Nom de l'actualité</th>
-								            <th>Description</th>
+								            <th>Visible</th>
+								            <th>Nom de l'article</th>
 								            <th></th>
 								        </tr>
 								    </thead>
 								    <tbody>
-									    @foreach($articles as $n)
+									    @foreach($articles as $a)
 									        <tr>
-									            <td>{{ $n->id }}</td>
-									            <td>{{ $n->name }}</td>
-									            <td>{{ $n->desc }}</td>
+									            <td><img src='{{ route("article_image_small", [$a->id, "original"]) }}' class="img-circle img-xs"/></td>
+															<td>{!! $a->is_visible == 1 ? '<span class="label label-success">Oui</span>' : '<span class="label label-danger">Non</span>' !!}</td>
+									            <td>{{ $a->name }}</td>
 									            <td>
-										            <form id="form_{{ $n->id }}" method="post" action="{{ route('admin.article.destroy', $n->id) }}">
+										            <form id="form_{{ $a->id }}" method="post" action="{{ route('admin.article.destroy', $a->id) }}">
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 											            <input type="hidden" name="_method" value="DELETE">
 											            <div class="btn-group pull-right">
-															<a class="btn btn-xs btn-default" href="{{ route('admin.article.edit', $n->id) }}">
+															<a class="btn btn-xs btn-default" href="{{ route('admin.article.edit', $a->id) }}">
 																<span class="fa fa-pencil"></span>
 															</a>
-															<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $n->id }}">
+															<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $a->id }}">
 																<span class="fa fa-times"></span>
 															</a>
 														</div>
@@ -65,7 +65,7 @@
 					<div id="paging"></div>
 				@else
 					<div class="col-lg-12">
-						<p class="content">Aucune actualité actuellement.</p>
+						<p class="content">Aucun article actuellement.</p>
 					</div>
 				@endif
 			</div>
@@ -81,8 +81,8 @@
 					url: "{{ asset('/admin/plugins/datatable/languages/french.json') }}"
 				},
 				oLanguage: {
-					"sZeroRecords": "Aucune actualité trouvée.",
-					"sEmptyTable": "Aucune actualité actuellement."
+					"sZeroRecords": "Aucun article trouvé.",
+					"sEmptyTable": "Aucun article actuellement."
 				},
 				"sDom": '<"H">t<"F"p>'
 			});

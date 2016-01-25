@@ -17,10 +17,12 @@
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 						<div class="content text-center">
 							<div class="col-lg-12">
-								<div id="imagePreview" class="img-circle imagePreview" style="background-image: url('{{ route("page_image_small", [$page->id, $page->name]) }}')">
+								<div id="imagePreview" class="img-circle imagePreview" style="background-image: url('{{ route("page_image_small", [$page->id, "original"]) }}')">
+									@if($page->has_image == 1)
 										<div onclick="removeImagePreview(this)" class="position-center">
 											<a class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
 										</div>
+									@endif
 								</div>
 								<input id="remove_photo" type="hidden" name="remove_photo" value="false">
 							</div>

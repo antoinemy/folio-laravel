@@ -57,21 +57,6 @@ class ArticleCategoryController extends Controller
 				'updated_by' 		=> Auth::user()->id,
 			]);
 
-			if(isset($input['image']) && is_uploaded_file($input['image']))
-			{
-				$dir = public_path('images/categories/articles/'.$category->id.'/small');
-				if(!File::isDirectory($dir)) {
-					File::makeDirectory($dir, 0777, true);
-				}
-
-				$image = Image::make($input['image'])
-					->fit(100, 100)
-					->save($dir.'/original.jpg');
-
-				$category->has_image = 1;
-				$category->save();
-			}
-
 			return redirect()->route('admin.category_article.index')->with([
 				'type' 		=> 'success',
 				'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été créé.',
@@ -111,33 +96,6 @@ class ArticleCategoryController extends Controller
 					'updated_by' 		=> Auth::user()->id,
 				]);
 
-				if((isset($input['remove_photo']) && $input['remove_photo'] == "true") ||
-				(isset($input['image']) && is_uploaded_file($input['image']) && $category->has_image == 1))
-				{
-					$category->has_image = 0;
-					$category->save();
-
-					$dir = public_path('images/categories/articles/'.$category->id);
-			        if(File::isDirectory($dir)) {
-						File::deleteDirectory($dir);
-					}
-				}
-
-				if(isset($input['image']) && is_uploaded_file($input['image']))
-				{
-					$dir = public_path('images/categories/news/'.$category->id.'/small');
-					if(!File::isDirectory($dir)) {
-						File::makeDirectory($dir, 0777, true);
-					}
-
-					$image = Image::make($input['image'])
-						->fit(100, 100)
-						->save($dir.'/original.jpg');
-
-					$category->has_image = 1;
-					$category->save();
-				}
-
 				return redirect()->route('admin.category_article.index')->with([
 					'type' 		=> 'success',
 					'message' 	=> '<span class="fa fa-check"></span> La catégorie d\'articles a bien été modifié.',
@@ -156,12 +114,7 @@ class ArticleCategoryController extends Controller
 	public function destroy($id)
 	{
 		if($category = ArticleCategory::find($id))
-		{
-			$dir = public_path('images/categories/articles/'.$category->id);
-	        if(File::isDirectory($dir)) {
-				File::deleteDirectory($dir);
-			}
-
+	{
 	        $category->delete();
 
 	        return redirect()->route('admin.category_article.index')->with([

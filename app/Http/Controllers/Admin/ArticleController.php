@@ -72,6 +72,15 @@ class ArticleController extends Controller
 					->fit(100, 100)
 					->save($dir.'/original.jpg');
 
+				$dir = public_path('images/article/'.$article->id);
+				if(!File::isDirectory($dir)) {
+					File::makeDirectory($dir, 0777, true);
+				}
+
+				$image = Image::make($input['image'])
+					->fit(500, 500)
+					->save($dir.'/original.jpg');
+
 				$article->has_image = 1;
 				$article->save();
 			}
@@ -141,6 +150,15 @@ class ArticleController extends Controller
 
 					$image = Image::make($input['image'])
 						->fit(100, 100)
+						->save($dir.'/original.jpg');
+
+					$dir = public_path('images/article/'.$article->id);
+					if(!File::isDirectory($dir)) {
+						File::makeDirectory($dir, 0777, true);
+					}
+
+					$image = Image::make($input['image'])
+						->fit(500, 500)
 						->save($dir.'/original.jpg');
 
 					$article->has_image = 1;

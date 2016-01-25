@@ -28,7 +28,7 @@ class Project extends Model
     protected $hidden = [];
 
     public function category() {
-		return $this->belongsTo('App\Http\Models\ArticleCategory', 'article_category_id');
+		return $this->belongsTo('App\Http\Models\ArticleCategory', 'project_category_id');
     }
 
     public function creator() {

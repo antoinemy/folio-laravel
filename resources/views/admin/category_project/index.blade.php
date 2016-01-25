@@ -29,18 +29,16 @@
 								<table id="table" class="table table-striped">
 								    <thead>
 								        <tr>
-								            <th></th>
+								            <th>Visible</th>
 								            <th>Nom de la catégorie</th>
-								            <th>Description</th>
 								            <th></th>
 								        </tr>
 								    </thead>
 								    <tbody>
 									    @foreach($categories as $c)
 									        <tr>
-									            <td>{{ $c->id }}</td>
+															<td>{!! $c->is_visible == 1 ? '<span class="label label-success">Oui</span>' : '<span class="label label-danger">Non</span>' !!}</td>
 									            <td>{{ $c->name }}</td>
-									            <td>{{ $c->desc }}</td>
 									            <td>
 										            <form id="form_{{ $c->id }}" method="post" action="{{ route('admin.category_project.destroy', $c->id) }}">
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -65,7 +63,7 @@
 					<div id="paging"></div>
 				@else
 					<div class="col-lg-12">
-						<p class="content">Aucune catégorie d'actualité actuellement.</p>
+						<p class="content">Aucune catégorie de projets actuellement.</p>
 					</div>
 				@endif
 			</div>
@@ -81,8 +79,8 @@
 					url: "{{ asset('/admin/plugins/datatable/languages/french.json') }}"
 				},
 				oLanguage: {
-					"sZeroRecords": "Aucune catégorie d'actualité trouvée.",
-					"sEmptyTable": "Aucune catégorie d'actualité actuellement."
+					"sZeroRecords": "Aucune catégorie de projets trouvée.",
+					"sEmptyTable": "Aucune catégorie de projets actuellement."
 				},
 				"sDom": '<"H">t<"F"p>'
 			});

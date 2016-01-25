@@ -16,12 +16,12 @@
       <div class="row">
         <div class="col-md-12 mb90 mt30 animated-links">
           <a href="{{ route('site.index') }}">Retour</a>
-          <a href="{{ route('site.articles') }}" class="float-right">#mesarticles</a>
-          <h1 class="text-center title-part uppercase mt90">@mesprojets</h1>
+          <a href="{{ route('site.projects') }}" class="float-right">@mesprojets</a>
+          <h1 class="text-center title-part uppercase mt90">#{{ $category->name }}</h1>
         </div>
         <div class="col-md-12">
-          @if(count($projects) > 0)
-            @foreach($projects as $p)
+          @if(count($category->projects) > 0)
+            @foreach($category->projects as $p)
               <div class="row row-eq-height mb60">
                 <div class="col-sm-3">
                   <a href="{{ route('site.page_project', $p->id) }}">
@@ -31,7 +31,6 @@
                 <div class="col-sm-9">
                   <a href="{{ route('site.page_project', $p->id) }}"><h3>{{ $p->name }}</h3></a>
                   <p>{{ $p->desc }}</p>
-                  <a href="{{ route('site.category_projects', [$p->category->id]) }}">#{{ $p->category->name }}</a>
                 </div>
               </div>
             @endforeach

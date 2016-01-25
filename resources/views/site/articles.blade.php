@@ -20,20 +20,26 @@
           <h1 class="text-center title-part uppercase mt90">#mesarticles</h1>
         </div>
         <div class="col-md-12">
-
-          <div class="row row-eq-height mb60">
-            <div class="col-sm-3">
-              <a href="page.html">
-                <img src="{{ asset('site/img/avatar.jpg') }}" class="img-circle img-thumbnail img-responsive center-block centered mb30"/>
-              </a>
-            </div>
-            <div class="col-sm-9">
-              <a href="page.html"><h3>Configurer Laravel en local sur sa machine</h3></a>
-              <p>Ex ea commodo consequat consequat consequat consequat consequat consequat consequat consequat consequat consequat consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-              <a href="#">#Voyages</a>
-            </div>
-          </div>
-
+          @if(count($articles) > 0)
+            @foreach($articles as $a)
+              <div class="row row-eq-height mb60">
+                <div class="col-sm-3">
+                  <a href="{{ route('site.page_article', $a->id) }}">
+                    <img src="{{ route('article_image_normal', [$a->id, 'original']) }}" class="img-circle img-thumbnail img-responsive center-block centered mb30"/>
+                  </a>
+                </div>
+                <div class="col-sm-9">
+                  <a href="{{ route('site.page_article', $a->id) }}"><h3>{{ $a->name }}</h3></a>
+                  <p>{{ $a->desc }}</p>
+                  <a href="{{ route('site.category_articles', [$a->category->id]) }}">#{{ $a->category->name }}</a>
+                </div>
+              </div>
+            @endforeach
+          @else
+            <p>
+              Aucun article actuellement.
+            </p>
+          @endif
         </div>
       </div>
     </div>

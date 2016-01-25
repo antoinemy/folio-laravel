@@ -17,10 +17,10 @@
         <div class="col-md-12 mt20 mb20">
           <div class="row row-eq-height">
             <div class="col-sm-4">
-              <img src="{{ asset('site/img/avatar.jpg') }}" class="img-circle img-thumbnail img-responsive center-block centered"/>
+              <img src="{{ route('page_image_normal', [$page->id, 'original']) }}" class="img-circle img-thumbnail img-responsive center-block centered"/>
               <div class="centered-not">
-                <a href="https://github.com/antoinemy" class="btn btn-circle btn-custom mr10" target="_blank"><span class="fa fa-github"></span></a>
-                <a href="https://bitbucket.org/antoinemy/" class="btn btn-circle btn-primary" target="_blank"><span class="fa fa-bitbucket"></span></a>
+                <a href="{{ $page->link_github }}" class="btn btn-circle btn-custom mr10" target="_blank"><span class="fa fa-github"></span></a>
+                <a href="{{ $page->link_bitbucket }}" class="btn btn-circle btn-primary" target="_blank"><span class="fa fa-bitbucket"></span></a>
               </div>
             </div>
             <div class="col-sm-8">

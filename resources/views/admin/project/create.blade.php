@@ -32,7 +32,7 @@
 
 						@include('admin.project._form')
 
-						<button class="btn btn-success pull-right m-b-15" type="submit">Créer l'actualité</button>
+						<button class="btn btn-success pull-right m-b-15" type="submit">Créer le projet</button>
 					</div>
 				</form>
 			</div>

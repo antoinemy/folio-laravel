@@ -19,7 +19,7 @@
 							<div class="col-xs-12">
 								<div class="content text-center">
 									<div class="col-lg-12">
-										<div id="imagePreview" class="img-circle imagePreview" style="background-image: url('{{ route("news_image_small", [$article->id, "original"]) }}')">
+										<div id="imagePreview" class="img-circle imagePreview" style="background-image: url('{{ route("article_image_small", [$article->id, "original"]) }}')">
 											@if($article->has_image == 1)
 												<div onclick="removeImagePreview(this)" class="position-center">
 													<a class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
