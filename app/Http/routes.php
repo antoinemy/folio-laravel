@@ -2,13 +2,13 @@
 
 // Sites Routes
 
-Route::get('/', ['as' => 'site.index', 'uses' => 'HomeController@index']);
-Route::get('/articles', ['as' => 'site.articles', 'uses' => 'HomeController@articles']);
-Route::get('/categories/{id}/articles', ['as' => 'site.category_articles', 'uses' => 'HomeController@category_articles']);
-Route::get('/articles/{id}', ['as' => 'site.page_article', 'uses' => 'HomeController@page_article']);
-Route::get('/projects', ['as' => 'site.projects', 'uses' => 'HomeController@projects']);
-Route::get('/categories/{id}/projects', ['as' => 'site.category_projects', 'uses' => 'HomeController@category_projects']);
-Route::get('/projects/{id}', ['as' => 'site.page_project', 'uses' => 'HomeController@page_project']);
+Route::get('/', ['as' => 'index', 'uses' => 'HomeController@index']);
+Route::get('/articles', ['as' => 'articles', 'uses' => 'HomeController@articles']);
+Route::get('/categories/{id}/articles', ['as' => 'category_articles', 'uses' => 'HomeController@category_articles']);
+Route::get('/articles/{id}', ['as' => 'page_article', 'uses' => 'HomeController@page_article']);
+Route::get('/projects', ['as' => 'projects', 'uses' => 'HomeController@projects']);
+Route::get('/categories/{id}/projects', ['as' => 'category_projects', 'uses' => 'HomeController@category_projects']);
+Route::get('/projects/{id}', ['as' => 'page_project', 'uses' => 'HomeController@page_project']);
 
 // Authentication Routes
 Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function()
