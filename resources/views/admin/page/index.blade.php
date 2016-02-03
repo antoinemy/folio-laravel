@@ -43,12 +43,16 @@
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 											            <input type="hidden" name="_method" value="DELETE">
 											            <div class="btn-group pull-right">
+																		@if(Auth::user()->can_edit(4))
 																		<a class="btn btn-xs btn-default" href="{{ route('admin.page.edit', $p->id) }}">
 																			<span class="fa fa-pencil"></span>
 																		</a>
+																		@endif
+																		@if(Auth::user()->can_edit(4))
 																		<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $p->id }}">
 																			<span class="fa fa-times"></span>
 																		</a>
+																		@endif
 																	</div>
 																</form>
 									            </td>

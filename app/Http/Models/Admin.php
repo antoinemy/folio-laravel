@@ -38,9 +38,45 @@ class Admin extends Model implements AuthenticatableContract, AuthorizableContra
 		return $this->hasMany('App\Http\Models\AdminRight', 'admin_id');
     }
 
-    public function has_right($id) {
+    public function can_show($id) {
 	    foreach($this->rights as $right) {
-		    if($right->right_id == $id) {
+		    if($right->right_id == $id && $right->can_show == 1) {
+			    return true;
+		    }
+	    }
+	    return false;
+    }
+
+    public function can_create($id) {
+	    foreach($this->rights as $right) {
+		    if($right->right_id == $id && $right->can_create == 1) {
+			    return true;
+		    }
+	    }
+	    return false;
+    }
+
+    public function can_edit($id) {
+	    foreach($this->rights as $right) {
+		    if($right->right_id == $id && $right->can_edit == 1) {
+			    return true;
+		    }
+	    }
+	    return false;
+    }
+
+    public function can_delete($id) {
+	    foreach($this->rights as $right) {
+		    if($right->right_id == $id && $right->can_delete == 1) {
+			    return true;
+		    }
+	    }
+	    return false;
+    }
+
+    public function can_right($id) {
+	    foreach($this->rights as $right) {
+		    if($right->right_id == $id && $right->can_right == 1) {
 			    return true;
 		    }
 	    }

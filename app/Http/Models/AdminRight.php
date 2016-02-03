@@ -15,6 +15,11 @@ class AdminRight extends Model
     protected $fillable = [
 	    'admin_id',
 	    'right_id',
+	    'can_show',
+	    'can_create',
+	    'can_edit',
+	    'can_delete',
+	    'can_right',
 	    'created_by',
 	    'updated_by',
     ];

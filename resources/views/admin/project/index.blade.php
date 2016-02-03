@@ -5,9 +5,11 @@
 	<div class="container">
 		<div class="col-md-12">
 			<div id="actions_row" class="row">
+				@if(Auth::user()->can_create(3))
 				<div class="col-md-8 col-sm-7 m-b-15">
 					<a class="btn btn-primary" href="{{ route('admin.project.create') }}" title=""><span class="fa fa-plus"></span> Nouveau</a>
 				</div>
+				@endif
 				@if(count($projects) > 0)
 					<div class="col-md-4 col-sm-5 m-b-15">
 						<input type="text" id="search" class="form-control" placeholder="Rechercher un projet">
@@ -46,14 +48,18 @@
 											            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 											            <input type="hidden" name="_method" value="DELETE">
 											            <div class="btn-group pull-right">
-															<a class="btn btn-xs btn-default" href="{{ route('admin.project.edit', $n->id) }}">
-																<span class="fa fa-pencil"></span>
-															</a>
-															<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $n->id }}">
-																<span class="fa fa-times"></span>
-															</a>
-														</div>
-													</form>
+																		@if(Auth::user()->can_edit(3))
+																		<a class="btn btn-xs btn-default" href="{{ route('admin.project.edit', $n->id) }}">
+																			<span class="fa fa-pencil"></span>
+																		</a>
+																		@endif
+																		@if(Auth::user()->can_delete(3))
+																		<a class="btn btn-xs btn-danger" data-bb="confirm" data-id="{{ $n->id }}">
+																			<span class="fa fa-times"></span>
+																		</a>
+																		@endif
+																	</div>
+																</form>
 									            </td>
 									        </tr>
 								        @endforeach
@@ -65,7 +71,7 @@
 					<div id="paging"></div>
 				@else
 					<div class="col-lg-12">
-						<p class="content">Aucune actualité actuellement.</p>
+						<p class="content">Aucun projet actuellement.</p>
 					</div>
 				@endif
 			</div>

@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-12 mb90 mt30 animated-links">
           <a href="{{ route('index') }}">Retour</a>
-          <a href="{{ route('articles') }}" class="float-right">#mesprojets</a>
+          <a href="{{ route('projects') }}" class="float-right">#mesprojets</a>
         </div>
 
         <div class="col-md-12 mt30">

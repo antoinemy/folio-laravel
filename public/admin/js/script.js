@@ -13,13 +13,14 @@ $(document).ready(function() {
 	showHideFormPage();
 	generateUniqueProfessionalId();
 	processStock();
-	
+	$('[data-toggle="tooltip"]').tooltip(); 
+
 	// Event when the window is resize
 	$(window).resize(function() {
 		showHideActionsButtons();
 		resizeImagesMultiplePreview();
 	});
-	
+
 	// Loader animation
 	$('a:not(.dropdown-toggle), .btn').click(function() {
 		Pace.restart();
@@ -52,7 +53,7 @@ function showHideActionsButtons() {
 function confirmDeleteCustom() {
 	$("a[data-bb='confirm']").click(function() {
 	    var that = $(this);
-	    bootbox.confirm({ 
+	    bootbox.confirm({
 		    size: 'small',
 		    message: "Voules-vous supprimer?",
 			buttons: {
@@ -74,7 +75,7 @@ function confirmDeleteCustom() {
 }
 
 // Preview for the simple upload of the first image for a page
- 
+
 function uploadImagePreview() {
 	$("#uploadFile").on("change", function() {
         var files = !!this.files ? this.files : [];
@@ -112,8 +113,8 @@ function uploadImagesMultiplePreview() {
 		$.each(files, function(idx, elm){
 			finalFiles[idx]=elm;
 		});
-		
-		for(var i=0; i<files.length; i++) {			
+
+		for(var i=0; i<files.length; i++) {
 			if (/^image/.test(files[i].type)) {
 	            var reader = new FileReader();
 	            reader.readAsDataURL(files[i]);
@@ -142,7 +143,7 @@ function removeImageMultiplePreview(item) {
 	var parent = $(item).parent().parent().parent();
 	var index = parent.attr("id").split('_')[1];
 	parent.remove();
-	
+
 	delete finalFiles[index];
 }
 
@@ -152,7 +153,7 @@ function removeImageExistsPreview(item) {
 	var parent = $(item).parent().parent().parent();
 	var value = $("#remove_photos").val();
 	if(value.length != 0) {
-		value += '-'; 
+		value += '-';
 	}
 	value += parent.attr("id");
 	$("#remove_photos").val(value);
@@ -237,9 +238,9 @@ function geoComplete() {
 		},
         styles: [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}]
     };
-    
+
 	var map = new google.maps.Map(document.getElementById("map"), options);
-	
+
 	$("#address").geocomplete({
 		map: "#map",
 		mapOptions: options,
@@ -271,7 +272,7 @@ function generateCode() {
 
     for(i=0;i<8;i++) {
 	    text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }   
+    }
 
     $('#codeProfessional').val(text);
 }
@@ -284,7 +285,7 @@ function processStock() {
 		else {
 			$(item).find('input[type=text]').attr('disabled', false);
 		}
-		
+
 		$(item).find('input[type=checkbox]').click(function() {
 			if($(this).is(':checked')) {
 				$(item).find('input[type=text]').attr('disabled', false);
